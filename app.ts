@@ -96,6 +96,3 @@ class SimpleServer {
         this.netServer.listen({port: port, host: hostname})
     }
 }
-
-const server = imap({port: 3000})
-server.listen({})
