@@ -1,0 +1,27 @@
+{
+    "compilerOptions": {
+        "target": "es6",
+        "module": "CommonJS",
+        "outDir": "./dist",
+        "strict": true,
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "noUnusedLocals": false,
+        "allowUnusedLabels": true,
+        "noUnusedParameters": false,
+        "noImplicitReturns": true,
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "moduleResolution": "node",
+        "isolatedModules": true
+    },
+    "exclude": [
+        "node_modules", "prisma", "dist"
+    ],
+    "include": [
+        "./src/**/*.ts",
+        "*.ts", "./src/**/*.test.ts"
+    ]
+}

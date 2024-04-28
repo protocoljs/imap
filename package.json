@@ -1,13 +1,30 @@
 {
-  "name": "@simpleimap/server",
-  "version": "1.0.0",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": ["imap", "server", "mail", "email", "mailbox", "inbox"],
-  "author": "Louis Grange",
-  "license": "ISC",
-  "description": "",
-  "homepage": "https://github.com"
+    "name": "@grangelouis/simple-imap",
+    "version": "1.0.0",
+    "main": "app.js",
+    "scripts": {
+        "test": "node --test --experimental-test-coverage",
+        "dev": "npx ts-node app.ts",
+        "build": "tsc -p tsconfig.json",
+        "start": "node dist/app.js"
+    },
+    "keywords": [
+        "imap",
+        "server",
+        "mail",
+        "email",
+        "mailbox",
+        "inbox"
+    ],
+    "author": "Louis Grange",
+    "license": "MIT",
+    "description": "",
+    "homepage": "https://github.com/",
+    "bugs": {
+        "url": "https://github.com/"
+    },
+    "devDependencies": {
+        "@types/node": "^20.12.7",
+        "nodemailer": "^6.9.13"
+    }
 }
