@@ -1,7 +1,7 @@
 {
-    "name": "@grangelouis/simple-imap",
+    "name": "@simpleimap/server",
     "version": "1.0.0",
-    "main": "app.js",
+    "main": "app.ts",
     "scripts": {
         "test": "node --test --experimental-test-coverage",
         "dev": "npx ts-node app.ts",
@@ -24,7 +24,6 @@
         "url": "https://github.com/"
     },
     "devDependencies": {
-        "@types/node": "^20.12.7",
-        "nodemailer": "^6.9.13"
+        "@types/node": "^20.12.7"
     }
 }
