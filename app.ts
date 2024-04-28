@@ -9,7 +9,7 @@ interface Options {
     debug?: boolean
 }
 
-function imap(options: Options) {
+export default function imap(options: Options) {
   return new SimpleServer(options)
 }
 
