@@ -1,4 +1,6 @@
 import * as net from 'net'
+import selectController from './controllers/select'
+import examineController from './controllers/examine'
 
 type capability = 'AUTH=PLAIN' | 'IDLE'
 
@@ -9,15 +11,34 @@ interface Options {
     debug?: boolean
 }
 
+
+/**
+ * Creates an IMAP server using the provided options.
+ * @param options - The configuration options for creating the server.
+ * @returns An instance of `SimpleServer`.
+ * @example
+ * const options = {
+ *   port: 3000,
+ *   host: 'localhost',
+ *   capabilities: ['AUTH=PLAIN'],
+ *   debug: false
+ * }
+ * const server = imap(options)
+ * server.listen()
+ * @see Options for more details about what the options object can contain.
+ */
 export default function imap(options: Options) {
   return new SimpleServer(options)
 }
 
 class SimpleServer {
     constructor(options: Options) {
+        let start = performance.now()
         const { port = 3000, host = 'localhost', capabilities = ['AUTH=PLAIN'], debug = false } = options
         let server = net.createServer({keepAlive: true}, (socket: any) => {
+            console.log(`\x1b[35m ϟ \x1b[0m Socket with ${socket.localAddress}`)
             let loggedIn: boolean = false
+            let selected: string | null = null
             socket.setEncoding('utf8')
             socket.write(`* OK [CAPABILITY IMAP4rev2 ${capabilities.join(' ')}] Server ready\n`)
             socket.on('data', (data: string) => {
@@ -32,12 +53,10 @@ class SimpleServer {
                         socket.destroySoon()
                         break
                     case 'SELECT':
-                        if (loggedIn) {
-
-                            socket.write(`${tag} OK SELECT completed\n`)
-                        } else {
-                            socket.write(`${tag} NO [ALERT] authentication required\n`)
-                        }
+                        selectController(socket, tag, options, {loggedIn: loggedIn, selected: selected})
+                        break
+                    case 'EXAMINE':
+                        examineController(socket, tag, options, {loggedIn: loggedIn, selected: selected})
                         break
                     case 'LIST':
                         if (loggedIn) {
@@ -77,22 +96,36 @@ class SimpleServer {
                         break
                 }
             })
-            socket.on('end', () => {
-                console.log('Connection ended')
+            socket.on('close', () => {
+                console.log(`\x1b[32m ϟ \x1b[0m Socket closed`)
             })
         })
         server.on('error', (error: any) => {
             console.error(` \x1b[41m ERROR \x1b[0m ${error.message}\n`)
         })
+        server.on('listening', (error: any) => {
+            console.log(`\x1b[32m → \x1b[0m Started in ${(performance.now() - start).toFixed(1)}ms`)
+        })
         this.netServer = server
     }
 
     private netServer: net.Server
-
     listen({port=3000, hostname='localhost'} : {port?: number, hostname?: string}): void {
-        console.log(` \x1b[42m START \x1b[0m IMAP Server is running\n`)
-        console.log(`\x1b[1m local \x1b[0m     imap://localhost:${port}`)
-        console.log(`\x1b[1m network \x1b[0m  \x1b[37m disabled\x1b[0m\n`)
+        let packageJson = require('./package.json')
+        let version = packageJson.version
+        let env = process.env.NODE_ENV || 'development'
+        switch (env) {
+            case 'production':
+                console.log(` \x1b[42m PROD \x1b[0m IMAP Simple Server v${version}\n`)
+                break
+            case 'development':
+                console.log(` \x1b[43m DEV \x1b[0m IMAP Simple Server v${version}\n`)
+                break
+            default:
+                break
+        }
+        console.log(`   \x1b[1m local \x1b[0m     imap://localhost:${port}`)
+        console.log(`   \x1b[1m network \x1b[0m  \x1b[37m disabled\x1b[0m\n`)
         this.netServer.listen({port: port, host: hostname})
     }
 }
