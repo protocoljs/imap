@@ -5,8 +5,6 @@ import examineController from './controllers/examine'
 type capability = 'AUTH=PLAIN' | 'IDLE'
 
 interface Options {
-    port?: number,
-    host?: string,
     capabilities?: capability[],
     debug?: boolean
 }
@@ -34,7 +32,7 @@ export default function imap(options: Options) {
 class SimpleServer {
     constructor(options: Options) {
         let start = performance.now()
-        const { port = 3000, host = 'localhost', capabilities = ['AUTH=PLAIN'], debug = false } = options
+        const { capabilities = ['AUTH=PLAIN'], debug = false } = options
         let server = net.createServer({keepAlive: true}, (socket: any) => {
             console.log(`\x1b[35m ϟ \x1b[0m Socket with ${socket.localAddress}`)
             let loggedIn: boolean = false
