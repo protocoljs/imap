@@ -1,7 +1,9 @@
 {
-    "name": "@simplemailbox/imap",
-    "version": "1.0.1",
-    "main": "app.ts",
+    "name": "@protocoljs/imap",
+    "version": "1.0.0-alpha.0",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "private": false,
     "scripts": {
         "test": "node --test --experimental-test-coverage",
         "dev": "npx ts-node app.ts",
@@ -21,11 +23,19 @@
     "author": "Louis Grange",
     "license": "MIT",
     "description": "Make your own mailbox server with Javascript or TypeScript",
-    "homepage": "https://github.com/simplemailbox/imap",
+    "homepage": "https://protocoljs.github.io/docs",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/protocoljs/imap"
+    },
     "bugs": {
-        "url": "https://github.com/simplemailbox/imap/issues"
+        "url": "https://github.com/protocoljs/imap/issues"
     },
     "devDependencies": {
+        "typescript": "^5.4.5",
         "@types/node": "^20.12.7"
+    },
+    "engines": {
+        "node": ">=21.0.0"
     }
 }

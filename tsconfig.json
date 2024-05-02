@@ -4,6 +4,7 @@
         "module": "CommonJS",
         "outDir": "./dist",
         "strict": true,
+        "declaration": true,
         "noImplicitAny": true,
         "noImplicitThis": true,
         "noUnusedLocals": false,
@@ -18,7 +19,7 @@
         "isolatedModules": true
     },
     "exclude": [
-        "node_modules", "prisma", "dist"
+        "node_modules", "dist"
     ],
     "include": [
         "./src/**/*.ts",
