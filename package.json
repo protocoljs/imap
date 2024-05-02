@@ -1,6 +1,6 @@
 {
-    "name": "@mailbox/imap",
-    "version": "1.0.0",
+    "name": "@simplemailbox/imap",
+    "version": "1.0.1",
     "main": "app.ts",
     "scripts": {
         "test": "node --test --experimental-test-coverage",
@@ -14,11 +14,17 @@
         "mail",
         "email",
         "mailbox",
-        "inbox"
+        "inbox",
+        "typescript",
+        "javascript"
     ],
     "author": "Louis Grange",
     "license": "MIT",
     "description": "Make your own mailbox server with Javascript or TypeScript",
+    "homepage": "https://github.com/simplemailbox/imap",
+    "bugs": {
+        "url": "https://github.com/simplemailbox/imap/issues"
+    },
     "devDependencies": {
         "@types/node": "^20.12.7"
     }
