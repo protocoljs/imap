@@ -2,23 +2,22 @@
 
 ![NPM Version](https://img.shields.io/npm/v/%40protocoljs%2Fimap?style=for-the-badge&logo=npm&color=blue&label=version)
 ![NPM Downloads](https://img.shields.io/npm/dy/%40protocoljs%2Fimap?style=for-the-badge&logo=npm)
+![npms.io](https://img.shields.io/npms-io/maintenance-score/%40protocoljs%2Fimap?style=for-the-badge&logo=npm)
 
-> ⚠️ **Warning**:
-> this package is currently being built and may have features missing. Please use with caution.
+Create your own, robust and easy to use IMAP server. Built with Node.js and Typescript, it offers a lightweight, high performance and straightforward interface for setting up and launching your own IMAP server.
 
-Create your own, robust and easy to use IMAP server. Built with Node.js and Typescript, it offers high performance and a straightforward interface for setting up and launching your own IMAP server.
+## Installation
 
-## Getting started
-
-This package is available on **npm** as follows:
+**Node LTS 20.x or higher**\
+This package is available on **npm** as follows and supports both CommonJS and ECMAScript modules (ESM) projects:
 
 ```
 npm install @protocoljs/imap
 ```
 
-### Documentation
+## Documentation
 
-The official documentation is available at [protocoljs.github.io/docs](https://protocoljs.github.io/docs)
+The official documentation is available at [https://protocoljs.github.io/docs](https://protocoljs.github.io/docs)
 
 ## Usage
 

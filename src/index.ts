@@ -1,4 +1,4 @@
-import * as net from 'net'
+import * as net from 'node:net'
 import selectController from './controllers/select'
 import examineController from './controllers/examine'
 
@@ -13,7 +13,7 @@ interface Options {
 /**
  * Creates an IMAP server using the provided options.
  * @param options - The configuration options for creating the server.
- * @returns An instance of `IMAPProtocol`.
+ * @returns An instance of `IMAPServer`.
  * @example
  * const options = {
  *   capabilities: ['AUTH=PLAIN'],
@@ -29,10 +29,10 @@ interface Options {
  * @see Options for more details about what the options object can contain.
  */
 export default function imap(options: Options) {
-  return new IMAPProtocol(options)
+  return new IMAPServer(options)
 }
 
-class IMAPProtocol {
+class IMAPServer {
     constructor(options: Options) {
         let start = performance.now()
         const { capabilities = ['AUTH=PLAIN'], debug = false } = options
@@ -127,16 +127,23 @@ class IMAPProtocol {
         let env = process.env.NODE_ENV || 'development'
         switch (env) {
             case 'production':
-                console.log(` \x1b[42m PROD \x1b[0m IMAP Simple Server v${version}\n`)
+                console.log(` \x1b[42m PRODUCTION \x1b[0m IMAP Protocol.js v${version}\n`)
                 break
             case 'development':
-                console.log(` \x1b[43m DEV \x1b[0m IMAP Simple Server v${version}\n`)
+                console.log(` \x1b[43m DEVELOPMENT \x1b[0m IMAP Protocol.js v${version}\n`)
                 break
             default:
                 break
         }
         console.log(`   \x1b[1m local \x1b[0m     imap://localhost:${port}`)
-        console.log(`   \x1b[1m network \x1b[0m  \x1b[37m disabled\x1b[0m\n`)
+        if (['localhost', '127.0.0.1'].includes(hostname)) {
+            console.log(`   \x1b[1m network \x1b[0m  \x1b[37m disabled\x1b[0m\n`)
+        } else {
+            console.log(`   \x1b[1m network \x1b[0m  \x1b[32m enabled\x1b[0m\n`)
+        }
+        if (version.includes('alpha') || version.includes('beta')) {
+            console.log(`   \x1b[33m warning \x1b[0m   this is a \x1b[4mprerelease\x1b[0m, feature might be missing\n`)
+        }
         this.netServer.listen({port: port, host: hostname})
     }
 }
