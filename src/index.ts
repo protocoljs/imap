@@ -109,7 +109,7 @@ class SimpleServer {
 
     private netServer: net.Server
     listen({port=3000, hostname='localhost'} : {port?: number, hostname?: string}): void {
-        let packageJson = require('./package.json')
+        let packageJson = require('../package.json')
         let version = packageJson.version
         let env = process.env.NODE_ENV || 'development'
         switch (env) {
