@@ -13,23 +13,26 @@ interface Options {
 /**
  * Creates an IMAP server using the provided options.
  * @param options - The configuration options for creating the server.
- * @returns An instance of `SimpleServer`.
+ * @returns An instance of `IMAPProtocol`.
  * @example
  * const options = {
- *   port: 3000,
- *   host: 'localhost',
  *   capabilities: ['AUTH=PLAIN'],
  *   debug: false
  * }
  * const server = imap(options)
+ * server.authenticate({
+ *     if (...) {
+ *         return true
+ *     }
+ * })
  * server.listen()
  * @see Options for more details about what the options object can contain.
  */
 export default function imap(options: Options) {
-  return new SimpleServer(options)
+  return new IMAPProtocol(options)
 }
 
-class SimpleServer {
+class IMAPProtocol {
     constructor(options: Options) {
         let start = performance.now()
         const { capabilities = ['AUTH=PLAIN'], debug = false } = options
@@ -75,7 +78,7 @@ class SimpleServer {
                         break
                     case 'LOGIN':
                         if (options.length == 2) {
-                            if (options[0] === 'PAUL' && options[1] === 'MICHEL') {
+                            if (this.checkAuthenticate(options[0], options[1])) {
                                 loggedIn = true
                                 socket.write(`${tag} OK LOGIN completed\n`)
                             } else {
@@ -107,8 +110,18 @@ class SimpleServer {
         this.netServer = server
     }
 
+    private checkAuthenticate : (username: string, password: string) => boolean = () => { return true }
+
+    authenticate(func: (username: string, password: string) => boolean) {
+        this.checkAuthenticate = func
+    }
+
     private netServer: net.Server
     listen({port=3000, hostname='localhost'} : {port?: number, hostname?: string}): void {
+        let defaultFunction : (username: string, password: string) => boolean = () => { return true }
+        if (this.checkAuthenticate === defaultFunction) {
+            throw Error('Invalid authentication function')
+        }
         let packageJson = require('../package.json')
         let version = packageJson.version
         let env = process.env.NODE_ENV || 'development'
