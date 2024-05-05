@@ -1,6 +1,6 @@
 {
     "name": "@protocoljs/imap",
-    "version": "1.0.0-alpha.2",
+    "version": "1.0.0-alpha.3",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
     "private": false,
@@ -22,7 +22,7 @@
     ],
     "author": "Louis Grange",
     "license": "MIT",
-    "description": "Make your own mailbox server with Javascript or TypeScript",
+    "description": "A lightweight, ready-to-use and customizable IMAP server for Javascript and Typescript",
     "homepage": "https://protocoljs.github.io/docs",
     "repository": {
         "type": "git",
