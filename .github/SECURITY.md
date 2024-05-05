@@ -1,9 +1,10 @@
 # Reporting Security Issues
 
-**Please do not report security vulnerabilities through public GitHub issues.**
+>[!CAUTION]
+>Please do not report security vulnerabilities through public GitHub Issues.
 
-Instead, please report them to me at https://protocoljs.github.io/docs.
+Instead, please report them on the [GitHub Security](https://github.com/protocoljs/imap/security) tab. We commit to engaging promptly with you to address it in the upcoming release.
 
 ## Preferred Languages
 
-We prefer all communications to be in English, French or Italian.
+We prefer all communications to be in English or French.
