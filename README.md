@@ -21,6 +21,10 @@ npm install @protocoljs/imap
 
 The official documentation is available at [https://protocoljs.github.io/docs](https://protocoljs.github.io/docs)
 
+## Reporting
+
+You can report issues and suggest features on [GitHub Issues](https://github.com/protocoljs/imap/issues).
+
 ## Simple example
 
 Launching you own IMAP server has never been that simple! Here's a quick example to start.
