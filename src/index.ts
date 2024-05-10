@@ -30,13 +30,21 @@ class IMAPServer {
             console.log(`\x1b[35mϟ\x1b[0m Socket with ${socket.localAddress}`)
             let loggedIn: boolean = false
             let selected: string | null = null
+            let idleTag: string | null
             socket.setEncoding('utf8')
             socket.write(`* OK [CAPABILITY IMAP4rev2 ${capabilities.join(' ')}] Server ready\n`)
             socket.on('data', (data: string) => {
+                if (idleTag && data.includes('DONE')) {
+                    socket.write(`${idleTag} OK IDLE terminated\n`)
+                }
                 let [tag, command, ...options] = data.replace(/[\n\r]/g, '').split(' ')
                 switch (command) {
                     case 'NOOP':
                         socket.write(`${tag} OK NOOP completed\n`)
+                        break
+                    case 'IDLE':
+                        idleTag = tag
+                        socket.write(`+ idling\n`)
                         break
                     case 'LOGOUT':
                         socket.write('* BYE logging out\n')
