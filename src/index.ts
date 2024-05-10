@@ -2,6 +2,7 @@ import * as net from 'node:net'
 import selectController from './controllers/select'
 import examineController from './controllers/examine'
 import listController from "./controllers/list"
+import build from "./controllers/build";
 
 type capability = 'AUTH=PLAIN' | 'IDLE'
 
@@ -12,23 +13,9 @@ interface Options {
 
 
 /**
- * Creates an IMAP server using the provided options.
- * @param options - The configuration options for creating the server.
- * @returns An instance of `IMAPServer`.
- * @example
- * const options = {
- *   capabilities: ['AUTH=PLAIN'],
- *   debug: false
- * }
- * const server = imap()
- * server.authenticate(() => {
- *     if (...) {
- *         return true
- *     }
- *     return false
- * })
- * server.listen(options)
- * @see Options for more details about what the options object can contain.
+ * Creates an IMAP server using the provided options
+ *
+ * @param options - The configuration options for creating the server
  */
 export default function imap(options: Options) {
   return new IMAPServer(options)
@@ -37,6 +24,7 @@ export default function imap(options: Options) {
 class IMAPServer {
     constructor(options: Options) {
         let start = performance.now()
+        build()
         const { capabilities = ['AUTH=PLAIN'], debug = false } = options
         let server = net.createServer({keepAlive: true}, (socket: any) => {
             console.log(`\x1b[35mϟ\x1b[0m Socket with ${socket.localAddress}`)
@@ -89,7 +77,7 @@ class IMAPServer {
                         break
                     default:
                         console.error(`\x1b[41m ERROR \x1b[0m Command "${command.toString()}" not supported\n`)
-                        socket.write(`${tag} BAD Rejected\n`)
+                        socket.write(`${tag} BAD rejected\n`)
                         break
                 }
             })
@@ -108,11 +96,23 @@ class IMAPServer {
 
     private checkAuthenticate : (username: string, password: string) => boolean = () => { return true }
 
+    /**
+     * Allows you to implement your own authentication verifications
+     *
+     * @param func - Your own authentication function
+     */
     authenticate(func: (username: string, password: string) => boolean) {
         this.checkAuthenticate = func
     }
 
     private netServer: net.Server
+
+    /**
+     * Starts the server on a specific port
+     *
+     * @param port - Port on which your server runs
+     * @param hostname - Hostname to run your server on
+     */
     listen({port=3000, hostname='localhost'} : {port?: number, hostname?: string}): void {
         let defaultFunction : (username: string, password: string) => boolean = () => { return true }
         if (this.checkAuthenticate === defaultFunction) {

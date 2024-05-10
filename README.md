@@ -1,7 +1,5 @@
 # Protocol.js
 
-> **IMPORTANT:** This package is in prerelease. Features may not work or may not be implemented.
-
 ![NPM Version](https://img.shields.io/npm/v/%40protocoljs%2Fimap?style=for-the-badge&logo=npm&color=yellow&label=version)
 ![NPM Downloads](https://img.shields.io/npm/dy/%40protocoljs%2Fimap?style=for-the-badge&logo=npm)
 ![npms.io](https://img.shields.io/npms-io/maintenance-score/%40protocoljs%2Fimap?style=for-the-badge&logo=npm)
