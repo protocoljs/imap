@@ -46,6 +46,31 @@ class IMAPServer {
                         idleTag = tag
                         socket.write(`+ idling\n`)
                         break
+                    case 'COPY':
+                        idleTag = tag
+                        if (options.length === 2) {
+                            const [messagesList, toMailbox] = options
+                            socket.write(`${tag} OK COPY completed\n`)
+                        } else {
+                            socket.write(`${tag} BAD COPY failed\n`)
+                        }
+                        break
+                    case 'CREATE':
+                        idleTag = tag
+                        socket.write(`${tag} BAD\n`)
+                        break
+                    case 'DELETE':
+                        idleTag = tag
+                        socket.write(`${tag} BAD\n`)
+                        break
+                    case 'search':
+                        idleTag = tag
+                        socket.write(`${tag} BAD\n`)
+                        break
+                    case 'APPEND':
+                        idleTag = tag
+                        socket.write(`${tag} BAD\n`)
+                        break
                     case 'LOGOUT':
                         socket.write('* BYE logging out\n')
                         socket.write(`${tag} OK LOGOUT completed\n`)
