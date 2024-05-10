@@ -20,6 +20,9 @@
         "typescript",
         "javascript"
     ],
+    "bin": {
+        "protocol": "dist/cli.js"
+    },
     "author": "Louis Grange",
     "license": "MIT",
     "description": "A lightweight, ready-to-use and customizable IMAP server for Javascript and Typescript",
@@ -32,10 +35,15 @@
         "url": "https://github.com/protocoljs/imap/issues"
     },
     "devDependencies": {
-        "typescript": "^5.4.5",
-        "@types/node": "^20.12.7"
+        "@types/inquirer": "^9.0.7",
+        "@types/node": "^20.12.7",
+        "typescript": "^5.4.5"
     },
     "engines": {
         "node": ">=21.0.0"
+    },
+    "dependencies": {
+        "@inquirer/input": "^2.1.6",
+        "@inquirer/select": "^2.3.2"
     }
 }

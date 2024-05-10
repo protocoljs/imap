@@ -1,10 +1,7 @@
-// @ts-ignore
-import config from ''
-
-interface PackageConfig {
+interface ProtocolConfig {
     mailboxes: object
 }
 
 export default function build() {
-    console.log(config.mailboxes)
+
 }
